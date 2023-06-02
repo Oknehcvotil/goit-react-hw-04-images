@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { IoSearchSharp } from 'react-icons/io5';
-import { Component } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import {
   SearchbarCont,
@@ -9,52 +9,48 @@ import {
   SearchInput,
 } from './Searchbar.styled';
 
-class Searchbar extends Component {
-  static propTypes = {
-    handleSearch: PropTypes.func.isRequired,
+const Searchbar = ({handleSearch}) => {
+  const [value, setValue] = useState('');
+
+  const handleChange = ({ target: { value } }) => {
+    setValue(value);
   };
 
-  state = {
-    value: '',
-  };
-
-  handleChange = ({ target: { value } }) => {
-    this.setState({ value });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    if (this.state.value.trim() === '') {
+    if (value.trim() === '') {
       toast.warning('Please write what you are looking for.');
       return;
     }
 
-    this.props.handleSearch(this.state.value);
+    handleSearch(value);
 
-    this.setState({ value: '' });
+    setValue('');
   };
 
-  render() {
-    return (
-      <SearchbarCont>
-        <SearchForm onSubmit={this.handleSubmit}>
-          <SearchBtn type="submit">
-            <IoSearchSharp style={{ width: 25, height: 25 }} />
-          </SearchBtn>
+  return (
+    <SearchbarCont>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchBtn type="submit">
+          <IoSearchSharp style={{ width: 25, height: 25 }} />
+        </SearchBtn>
 
-          <SearchInput
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={this.handleChange}
-            value={this.state.value}
-          />
-        </SearchForm>
-      </SearchbarCont>
-    );
-  }
-}
+        <SearchInput
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={handleChange}
+          value={value}
+        />
+      </SearchForm>
+    </SearchbarCont>
+  );
+};
+
+Searchbar.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
+};
 
 export default Searchbar;
