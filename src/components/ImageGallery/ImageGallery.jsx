@@ -14,6 +14,7 @@ const ImageGallery = ({ page, searchValue, onLoadMore, onLoader, onClick }) => {
     }
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchValue]);
 
   async function fetchData() {
