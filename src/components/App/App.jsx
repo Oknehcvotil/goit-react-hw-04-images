@@ -11,13 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { AppContainer } from './App.styled';
 
-// const STATUS = {
-//   IDLE: 'idle',
-//   PENDING: 'pending',
-//   RESOLVED: 'resolved',
-//   REJECTED: 'rejected',
-// };
-
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
   const [page, setPage] = useState(1);

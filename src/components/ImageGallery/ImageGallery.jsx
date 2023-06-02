@@ -39,7 +39,9 @@ const ImageGallery = ({ page, searchValue, onLoadMore, onLoader, onClick }) => {
         return;
       }
 
-      toast.success(`Hooray! We found ${totalHits} images.`);
+      if (page === 1) {
+        toast.success(`Hooray! We found ${totalHits} images.`);
+      }
 
       if (totalPages > 1) {
         onLoadMore(true);
